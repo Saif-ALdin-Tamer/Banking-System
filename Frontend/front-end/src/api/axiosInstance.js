@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "https://banking-system-back-igscxtn0g-saif-al-din-s-projects.vercel.app",
+  baseURL: "https://banking-system-back-end.vercel.app",
 });
 
 // Add a request interceptor to include the JWT token in every request
