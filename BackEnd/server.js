@@ -17,6 +17,12 @@ app.use( cors({
 
 app.use( express.json() )
 
+// Ensure DB is connected before every request
+app.use(async (req, res, next) => {
+  await connectDB()
+  next()
+})
+
 // Health check route
 app.get("/api/health", (req, res) => {
   const dbStatus = mongoose.connection.readyState
@@ -30,8 +36,6 @@ app.get("/api/health", (req, res) => {
 })
 
 app.use("/api", Routes)
-
-connectDB()
 
 export default app
 
