@@ -12,11 +12,7 @@ app.use( express.json() )
 
 app.use("/api", Routes)
 
-const PORT = 4000 ;
-
-app.listen(PORT, () => {
-    console.log(`Server Is Running On Port ${PORT} `)
-})
-
 connectDB()
+
+export default app
 
