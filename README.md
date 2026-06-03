@@ -1,8 +1,6 @@
-# NeoBank - Modern Banking System
+Modern Banking System
 
 A full-stack modern banking application built with the **MERN** stack (MongoDB, Express.js, React, Node.js). This project demonstrates a robust, scalable, and secure architecture suitable for financial transactions, featuring a beautiful UI, secure authentication, and seamless user experience.
-
-![NeoBank Preview](https://banking-system-front-end-git-main-saif-al-din-s-projects.vercel.app/favicon.ico)
 
 ## 🔗 Live Links
 - **Frontend (Live)**: [https://banking-system-front-end-git-main-saif-al-din-s-projects.vercel.app](https://banking-system-front-end-git-main-saif-al-din-s-projects.vercel.app)
@@ -88,5 +86,3 @@ The backend exposes a clean and stateless **RESTful API** architecture. Endpoint
 2. Install dependencies: `npm install`
 3. Start the Vite development server: `npm run dev`
 
----
-*Built by Saif Aldin Tamer*
