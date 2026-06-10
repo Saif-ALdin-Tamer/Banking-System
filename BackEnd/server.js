@@ -8,49 +8,52 @@ import Routes from "./routes/index.js"
 
 const app = express()
 
-app.use( cors({
-  origin: function (origin, callback) {
-    // Allow requests with no origin (curl, mobile apps, Postman)
+const corsOptions = {
+  origin(origin, callback) {
     if (!origin) return callback(null, true)
-    
-    // Allow all Vercel preview/production URLs for our frontend
-    if (origin.includes("banking-system-front-end") && origin.includes("vercel.app")) {
-      return callback(null, true)
-    }
-    
-    // Allow localhost for development
-    if (origin.includes("localhost")) {
-      return callback(null, true)
-    }
-    
-    // Allow custom FRONTEND_URL from env
+    if (origin.includes("localhost")) return callback(null, true)
     if (process.env.FRONTEND_URL && origin === process.env.FRONTEND_URL) {
       return callback(null, true)
     }
-
-    callback(new Error("Not allowed by CORS"))
+    if (/^https:\/\/banking-system[\w-]*\.vercel\.app$/.test(origin)) {
+      return callback(null, true)
+    }
+    callback(null, false)
   },
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true
-}) )
+  credentials: true,
+}
 
-app.use( express.json() )
+app.use(cors(corsOptions))
+app.options(/.*/, cors(corsOptions))
+app.use(express.json())
 
-// Ensure DB is connected before every request (required for serverless)
-app.use(async (req, res, next) => {
-  await connectDB()
-  next()
-})
-
-// Health check route
 app.get("/api/health", (req, res) => {
   res.json({ server: "running", status: "ok" })
 })
 
-app.use("/api", Routes)
+app.get("/api/health/db", async (req, res) => {
+  try {
+    await connectDB()
+    res.json({ db: "connected", status: "ok" })
+  } catch (error) {
+    res.status(503).json({ db: "failed", status: "error", message: error.message })
+  }
+})
 
-// Local development server (Vercel uses export default app)
+app.use("/api", async (req, res, next) => {
+  try {
+    await connectDB()
+    next()
+  } catch (error) {
+    console.error("Database unavailable:", error.message)
+    res.status(503).json({
+      message: "Database connection failed. Set MONGO_URL in Vercel environment variables.",
+    })
+  }
+}, Routes)
+
 if (process.env.NODE_ENV !== "production") {
   const PORT = process.env.PORT || 5000
   app.listen(PORT, () => {

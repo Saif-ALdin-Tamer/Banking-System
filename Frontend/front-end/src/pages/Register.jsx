@@ -26,7 +26,10 @@ const Register = () => {
       await register(data.name, data.email, data.password);
       navigate("/");
     } catch (error) {
-      setApiError(error.response?.data?.message || "Registration failed. Please try again.");
+      const msg = error.response?.data?.message
+        || (typeof error.response?.data === "string" ? error.response.data : null)
+        || "Registration failed. Please try again.";
+      setApiError(msg);
     }
   };
 

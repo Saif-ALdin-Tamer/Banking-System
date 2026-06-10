@@ -36,10 +36,10 @@ export const register = async (req, res) => {
             }
             return res.status(400).send("Request invalid") ;
         }
-        console.error("Error in getUserData:", error) ;
-        return res.status(500).send("Internal Server Error") ;
-        }
+        console.error("Error in register:", error);
+        return res.status(500).json({ message: "Registration failed. Please try again." });
     }
+}
 
 
 export const login = async (req, res) => {
@@ -65,7 +65,7 @@ export const login = async (req, res) => {
             }
             return res.status(400).send("Request invalid") ;
         }
-        console.error("Error in getUserData:", error) ;
-        return res.status(500).send("Internal Server Error") ;
-        }
+        console.error("Error in login:", error);
+        return res.status(500).json({ message: "Login failed. Please try again." });
+    }
 }
