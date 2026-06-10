@@ -1,7 +1,4 @@
-import mongoose from "mongoose" 
-import dotenv from "dotenv"
-
-dotenv.config()
+import mongoose from "mongoose"
 
 let cachedConnection = null
 
@@ -10,16 +7,13 @@ const connectDB = async () => {
         return cachedConnection
     }
     try {
-        cachedConnection = await mongoose.connect( process.env.MONGO_URL )
-        console.log("database connected successfully") ;
+        cachedConnection = await mongoose.connect(process.env.MONGO_URL)
+        console.log("Database connected successfully")
         return cachedConnection
-    } catch( error ) {
+    } catch (error) {
         cachedConnection = null
-        console.error("MongoDB connection failed:", error.message) ;
+        console.error("MongoDB connection failed:", error.message)
     }
 }
-
-
-
 
 export default connectDB

@@ -2,15 +2,21 @@ import Stripe from "stripe";
 import User from "../models/usersModel.js";
 import Notification from "../models/notificationModel.js";
 import Transaction from "../models/transactionModel.js";
-import dotenv from "dotenv";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "");
+// Lazy-initialize Stripe to ensure env vars are loaded
+let stripe = null;
+const getStripe = () => {
+    if (!stripe) {
+        stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+    }
+    return stripe;
+};
 
 export const createDepositSession = async (req, res) => {
     const { amount } = req.body;
-    const frontend_url = "http://localhost:5173";
+    const frontend_url = process.env.FRONTEND_URL || "http://localhost:5173";
     try {
-    const session = await stripe.checkout.sessions.create({
+    const session = await getStripe().checkout.sessions.create({
         payment_method_types: ["card"],
         line_items: [
         {
