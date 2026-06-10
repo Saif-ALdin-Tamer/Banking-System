@@ -10,19 +10,25 @@ const app = express()
 
 app.use( cors({
   origin: function (origin, callback) {
-    const allowedOrigins = [
-      process.env.FRONTEND_URL,
-      "https://banking-system-front-end-git-main-saif-al-din-s-projects.vercel.app",
-      "https://banking-system-front-end.vercel.app",
-      "http://localhost:5173",
-      "http://localhost:3000"
-    ].filter(Boolean)
-    // Allow requests with no origin (mobile apps, curl, etc.)
-    if (!origin || allowedOrigins.some(allowed => origin.startsWith(allowed))) {
-      callback(null, true)
-    } else {
-      callback(new Error("Not allowed by CORS"))
+    // Allow requests with no origin (curl, mobile apps, Postman)
+    if (!origin) return callback(null, true)
+    
+    // Allow all Vercel preview/production URLs for our frontend
+    if (origin.includes("banking-system-front-end") && origin.includes("vercel.app")) {
+      return callback(null, true)
     }
+    
+    // Allow localhost for development
+    if (origin.includes("localhost")) {
+      return callback(null, true)
+    }
+    
+    // Allow custom FRONTEND_URL from env
+    if (process.env.FRONTEND_URL && origin === process.env.FRONTEND_URL) {
+      return callback(null, true)
+    }
+
+    callback(new Error("Not allowed by CORS"))
   },
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
