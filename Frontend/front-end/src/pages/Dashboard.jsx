@@ -9,7 +9,8 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
-  const cardBalance = user?.balance || 0;
+  const accountBalance = user?.balance || 0;
+  const cardBalance = user?.card?.balance || 0;
   
   const handleStripeDeposit = () => {
     if (amount) {
@@ -41,10 +42,10 @@ const Dashboard = () => {
             className="bg-white rounded-2xl p-7 shadow-sm border border-slate-100/50"
           >
             <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-3">Total Balance</h3>
-            <p className="text-4xl font-extrabold text-slate-800 mb-4">${cardBalance.toFixed(2)}</p>
+            <p className="text-4xl font-extrabold text-slate-800 mb-4">${accountBalance.toFixed(2)}</p>
             <div className="flex items-center gap-2 mb-5">
               <span className="text-sm text-slate-400">Available Funds: </span>
-              <span className="text-sm font-semibold text-slate-600">${(cardBalance * 0.9).toFixed(2)}</span>
+              <span className="text-sm font-semibold text-slate-600">${(accountBalance * 0.9).toFixed(2)}</span>
             </div>
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 bg-[#e0f5ee] rounded-lg flex items-center justify-center">
@@ -82,7 +83,7 @@ const Dashboard = () => {
               <button onClick={() => navigate("/deposit")} className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-[#f0eef6] hover:bg-[#e8e4f0] text-slate-700 font-medium text-sm transition-all">
                 <ArrowDownToLine size={16} className="text-violet-500" /> Add Funds
               </button>
-              <button onClick={() => navigate("/deposit")} className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-[#f0eef6] hover:bg-[#e8e4f0] text-slate-700 font-medium text-sm transition-all">
+              <button onClick={() => navigate("/transactions")} className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-[#f0eef6] hover:bg-[#e8e4f0] text-slate-700 font-medium text-sm transition-all">
                 <ArrowUpFromLine size={16} className="text-violet-500" /> Withdraw
               </button>
               <button onClick={() => navigate("/transfer")} className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-[#f0eef6] hover:bg-[#e8e4f0] text-slate-700 font-medium text-sm transition-all">

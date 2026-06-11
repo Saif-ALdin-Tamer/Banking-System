@@ -18,7 +18,7 @@ const Profile = () => {
     try {
       setSaving(true);
       setError("");
-      const res = await axiosInstance.put("/users/withdraw", {
+      const res = await axiosInstance.put("/users/profile", {
         name: editName,
         email: editEmail,
       });
@@ -67,7 +67,7 @@ const Profile = () => {
               </div>
               <div>
                 <p className="text-xs text-slate-400 font-semibold uppercase tracking-wider">Email</p>
-                <p className="text-sm text-slate-700 font-semibold">{user?.email || "user@neobank.com"}</p>
+                <p className="text-sm text-slate-700 font-semibold">{user?.email || "user@bank.com"}</p>
               </div>
             </div>
 

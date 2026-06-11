@@ -38,7 +38,7 @@ export default function Header() {
                         <span className="text-xl">🏦</span>
                     </div>
                     <h1 className="text-xl font-extrabold tracking-wide text-slate-800">
-                        Neo<span className="text-slate-500">Bank</span>
+                        Bank
                     </h1>
                 </div>
 

@@ -44,6 +44,8 @@ export const AuthProvider = ({ children }) => {
       _id: res.data._id,
       name: res.data.name,
       email: res.data.email,
+      balance: res.data.balance || 0,
+      card: res.data.card || null,
     });
     return res.data;
   };

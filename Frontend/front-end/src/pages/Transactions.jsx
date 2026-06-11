@@ -48,7 +48,9 @@ export default function Transactions() {
             </thead>
             <tbody>
               {transactions.length > 0 ? (
-                transactions.map((t, i) => (
+                transactions.map((t, i) => {
+                  const isIncoming = ["deposit", "receive", "deposit-card", "transfer-to-account"].includes(t.type);
+                  return (
                   <motion.tr 
                     key={t._id} 
                     initial={{ opacity: 0, y: 10 }} 
@@ -58,9 +60,9 @@ export default function Transactions() {
                   >
                     <td className="py-4 px-6 flex items-center gap-3">
                       <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${
-                        t.type === "deposit" ? "bg-[#e0f5ee]" : "bg-red-50"
+                        isIncoming ? "bg-[#e0f5ee]" : "bg-red-50"
                       }`}>
-                        {t.type === "deposit" ? (
+                        {isIncoming ? (
                           <ArrowDownCircle className="text-emerald-500" size={18} />
                         ) : (
                           <ArrowUpCircle className="text-rose-400" size={18} />
@@ -70,9 +72,9 @@ export default function Transactions() {
                     </td>
 
                     <td className={`py-4 px-6 font-bold text-sm ${
-                      t.type === "deposit" ? "text-emerald-600" : "text-rose-500"
+                      isIncoming ? "text-emerald-600" : "text-rose-500"
                     }`}>
-                      {t.type === "deposit" ? "+" : "-"}${t.amount.toFixed(2)}
+                      {isIncoming ? "+" : "-"}${t.amount.toFixed(2)}
                     </td>
 
                     <td className="py-4 px-6 text-slate-400 text-sm">
@@ -81,7 +83,8 @@ export default function Transactions() {
                       })}
                     </td>
                   </motion.tr>
-                ))
+                  );
+                })
               ) : (
                 <tr>
                   <td colSpan="3" className="py-12 text-center text-slate-400">

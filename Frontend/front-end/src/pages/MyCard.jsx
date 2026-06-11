@@ -68,7 +68,7 @@ const MyCard = () => {
 
             <div className="flex justify-between items-start">
               <div>
-                <p className="text-xs text-white/60 tracking-widest font-semibold">NeoBank</p>
+                <p className="text-xs text-white/60 tracking-widest font-semibold">Bank</p>
                 <p className="text-[10px] text-white/40 mt-0.5">VIRTUAL CARD</p>
               </div>
               <div className="flex gap-1">
@@ -140,7 +140,7 @@ const MyCard = () => {
               <div className="flex justify-between items-center mt-4">
                 <div className="flex items-center gap-1.5">
                   <div className="w-3 h-3 bg-violet-400 rounded-full" />
-                  <span className="text-[11px] text-white/60 font-medium">NeoBank</span>
+                  <span className="text-[11px] text-white/60 font-medium">Bank</span>
                 </div>
                 <span className="text-[11px] text-white/40">© 2025</span>
               </div>

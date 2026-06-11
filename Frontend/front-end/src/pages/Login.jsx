@@ -32,7 +32,7 @@ const Login = () => {
             <LogIn size={24} className="text-white" />
           </div>
           <h2 className="text-3xl font-extrabold text-slate-800">Welcome back</h2>
-          <p className="text-slate-400 mt-2 text-sm">Sign in to your NeoBank account</p>
+          <p className="text-slate-400 mt-2 text-sm">Sign in to your Bank account</p>
         </div>
 
         <div className="bg-white rounded-2xl shadow-sm border border-slate-100/50 p-7">
