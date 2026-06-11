@@ -23,7 +23,7 @@ const cardSchema = new mongoose.Schema ({
     } ,
     createdAt: {
         type: String,
-        default: String
+        default: () => new Date().toISOString()
     } ,
 })
 export default mongoose.model('Card', cardSchema)

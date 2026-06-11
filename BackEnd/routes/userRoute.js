@@ -1,4 +1,3 @@
-import { get } from "mongoose";
 import express from 'express' ;
 import { protect } from '../middleware/authMiddleware.js';
 import { getUserData, updateProfile } from
@@ -9,6 +8,6 @@ const router = express.Router()
 
 router.get('/', protect, getUserData ) ;
 
-router.put('/withdraw', protect, updateProfile ) ;
+router.put('/profile', protect, updateProfile ) ;
 
 export  default router

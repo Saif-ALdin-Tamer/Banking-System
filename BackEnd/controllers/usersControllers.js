@@ -81,7 +81,7 @@ export const updateProfile = async (req, res) => {
             } 
             return res.status(400).send("Request invalid")
         } 
-        console.error("Error in getUserData:", error) ;
+        console.error("Error in updateProfile:", error) ;
         return res.status(500).send("Internal Server Error") ;
     }
 }

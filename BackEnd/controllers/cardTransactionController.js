@@ -42,10 +42,11 @@ export const depositToCard = async (req, res) => {
             for ( let everyError in error.errors) {
                 console.log ( error.errors[everyError].message ) ;
             }
-            return res.status(404).json({
-                message: "" 
+            return res.status(400).json({
+                message: "Validation failed" 
             }) ;
         }
+        console.error("Error in depositToCard:", error);
         return res.status(500).json({
             message: "Internal server error"
         }) ;
@@ -55,7 +56,7 @@ export const depositToCard = async (req, res) => {
 export const withdrawFromCard = async (req, res) => {
     const { amount } = req.body;
     try {
-        if (!amount || Number(amount) <= 0) {
+        if (!amount || isNaN(amount) || Number(amount) <= 0) {
             return res.status(400).json({
                 success: false,
                 message: "Invalid withdrawal amount"

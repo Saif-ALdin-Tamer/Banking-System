@@ -1,4 +1,4 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 const notificationSchem = new mongoose.Schema ({
     user: {type: mongoose.Schema.Types.ObjectId,
         ref: 'User' ,

@@ -65,7 +65,7 @@ export const transfer = async (req, res) => {
         }
         return res.status(400).send("Request invalid");
     }
-    console.error("Error in getUserData:", error);
+    console.error("Error in transfer:", error);
     return res.status(500).send("Internal Server Error");
     }
 };
